@@ -25,79 +25,7 @@ body {
   color: #ff6ec7;
   font-family: var(--raj);
   overflow-x: hidden;
-  cursor: none; /* hide default cursor */
-}
-
-/* ═══════════════════════════════════════════
-   CUSTOM CURSOR
-═══════════════════════════════════════════ */
-#cursor-circle,
-#cursor-star {
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.15s ease;
-  top: 0; left: 0;
-  will-change: transform;
-}
-
-/* Circle cursor */
-#cursor-circle {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(217,27,122,0.9);
-  box-shadow:
-    0 0 8px rgba(217,27,122,1),
-    0 0 20px rgba(217,27,122,0.6),
-    0 0 40px rgba(192,38,211,0.3);
-  opacity: 1;
-  transition: opacity 0.15s ease, transform 0.08s ease;
-}
-
-/* Star cursor (SVG-based 4-pointed star) */
-#cursor-star {
-  width: 28px;
-  height: 28px;
-  opacity: 0;
-  transition: opacity 0.15s ease, transform 0.08s ease;
-  animation: starSpin 3s linear infinite;
-}
-
-#cursor-star svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 6px rgba(217,27,122,1)) drop-shadow(0 0 16px rgba(224,64,208,0.7));
-}
-
-/* Trailing dot */
-#cursor-trail {
-  position: fixed;
-  pointer-events: none;
-  z-index: 99998;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(192,38,211,0.5);
-  transform: translate(-50%, -50%);
-  top: 0; left: 0;
-  transition: left 0.12s ease, top 0.12s ease;
-  box-shadow: 0 0 8px rgba(192,38,211,0.6);
-}
-
-@keyframes starSpin {
-  0%   { transform: translate(-50%, -50%) rotate(0deg);   }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Show star, hide circle on interactables */
-body.cursor-hover #cursor-circle { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-body.cursor-hover #cursor-star   { opacity: 1; }
-
-/* All interactable elements: hide system cursor */
-a, button, input, textarea, select, label, [role="button"], .ico, .send-btn, .nav-links a, .chat-input {
-  cursor: none !important;
+  cursor: crosshair;
 }
 
 /* ═══════════════════════════════════════════
@@ -142,7 +70,7 @@ a, button, input, textarea, select, label, [role="button"], .ico, .send-btn, .na
 /* RAILS */
 .rail { position:fixed; top:0; bottom:0; width:1px; z-index:50; pointer-events:none;
   background: linear-gradient(to bottom, transparent, rgba(217,27,122,.4) 30%, rgba(217,27,122,.4) 70%, transparent); }
-.rail.l{left:28px} .rail.r{right:28px}
+.rail.l{left:20px} .rail.r{right:20px}
 .rail::after { content:''; position:absolute; top:0; left:0; width:1px; height:70px;
   background:#d91b7a; box-shadow:0 0 10px #d91b7a; animation:rs 4s ease-in-out infinite; }
 .rail.r::after{animation-delay:2s}
@@ -195,7 +123,7 @@ nav {
 
 .hero-inner {
   display: flex; align-items: center; justify-content: center;
-  gap: 60px; width: 100%; max-width: 1200px; padding: 0 80px;
+  gap: 80px; width: 100%; max-width: 1200px; padding: 0 60px;
   flex-wrap: wrap;
 }
 
@@ -243,15 +171,12 @@ nav {
 /* Right: rhombus canvas */
 .rhombus-wrap {
   flex:0 0 auto;
-  width:300px; height:300px;
+  width:420px; height:420px;
   display:flex; align-items:center; justify-content:center;
   position:relative;
-  overflow:visible;
 }
 #rhombusCanvas {
-  width:300px; height:300px;
-  filter: drop-shadow(0 0 18px rgba(192,38,211,.95)) drop-shadow(0 0 36px rgba(192,38,211,.5));
-  display:block;
+  filter: drop-shadow(0 0 30px rgba(192,38,211,.95)) drop-shadow(0 0 90px rgba(192,38,211,.45));
 }
 
 /* Scroll hint */
@@ -264,17 +189,6 @@ nav {
 }
 @keyframes hintFade{0%,100%{opacity:.35}50%{opacity:.8}}
 .scroll-arrow { width:1px; height:40px; background:linear-gradient(to bottom,rgba(217,27,122,.6),transparent); }
-
-@media (max-width: 900px) {
-  .rhombus-wrap { width:260px; height:260px; }
-  #rhombusCanvas { width:260px; height:260px; }
-  .hero-inner { padding: 0 60px; gap: 40px; }
-}
-@media (max-width: 600px) {
-  .rhombus-wrap { width:220px; height:220px; }
-  #rhombusCanvas { width:220px; height:220px; }
-  .hero-inner { padding: 0 48px; gap: 30px; }
-}
 
 /* ═══════════════════════════════════════════
    SECTION DIVIDER
@@ -432,13 +346,13 @@ nav {
 .send-btn {
   font-family:var(--mono); font-size:11px; letter-spacing:3px;
   background:rgba(192,38,211,.15); border:1px solid rgba(192,38,211,.4);
-  color:#e040d0; padding:9px 18px; cursor:none;
+  color:#e040d0; padding:9px 18px; cursor:pointer;
   transition:all .2s; text-transform:uppercase;
 }
 .send-btn:hover { background:rgba(192,38,211,.3); box-shadow:0 0 12px rgba(192,38,211,.4); }
 .send-btn:active { transform:scale(.97); }
 .input-icons { display:flex; gap:10px; }
-.ico { font-family:var(--mono); font-size:14px; color:rgba(255,110,199,.3); cursor:none; transition:color .2s; }
+.ico { font-family:var(--mono); font-size:14px; color:rgba(255,110,199,.3); cursor:pointer; transition:color .2s; }
 .ico:hover{color:rgba(255,110,199,.7)}
 
 /* ═══════════════════════════════════════════
@@ -476,23 +390,6 @@ footer {
 </style>
 </head>
 <body>
-
-<!-- ═══════════ CUSTOM CURSOR ═══════════ -->
-<div id="cursor-trail"></div>
-<div id="cursor-circle"></div>
-<div id="cursor-star">
-  <!-- 4-pointed sharp star -->
-  <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-    <polygon
-      points="14,0 16.5,11.5 28,14 16.5,16.5 14,28 11.5,16.5 0,14 11.5,11.5"
-      fill="rgba(217,27,122,0.95)"
-      stroke="rgba(255,160,255,0.8)"
-      stroke-width="0.6"
-    />
-    <!-- inner glow dot -->
-    <circle cx="14" cy="14" r="2.5" fill="rgba(255,200,255,1)"/>
-  </svg>
-</div>
 
 <!-- Fixed layers -->
 <canvas id="starCanvas"></canvas>
@@ -540,7 +437,7 @@ footer {
 
     <!-- Right: rhombus -->
     <div class="rhombus-wrap">
-      <canvas id="rhombusCanvas" width="300" height="300"></canvas>
+      <canvas id="rhombusCanvas" width="420" height="420"></canvas>
     </div>
 
   </div>
@@ -659,91 +556,9 @@ footer {
   <div class="ft-copy">© 2077 PROJECT CONQUER — ALL REALITIES MUST BE CONQUERED</div>
 </footer>
 
-<style>
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-</style>
 
 <script>
-/* ════════════════════════════════
-   CUSTOM CURSOR
-════════════════════════════════ */
-(function(){
-  const circle = document.getElementById('cursor-circle');
-  const star   = document.getElementById('cursor-star');
-  const trail  = document.getElementById('cursor-trail');
-
-  let mouseX = -100, mouseY = -100;
-  let trailX = -100, trailY = -100;
-
-  // Interactable selector
-  const INTERACTABLE = 'a, button, input, textarea, select, [role="button"], .ico, .send-btn, .nav-links a, .chat-input, .badge';
-
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Snap circle/star instantly
-    const tx = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    circle.style.transform = tx;
-    star.style.transform   = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) rotate(${Date.now() * 0.06 % 360}deg)`;
-
-    // Hover detection
-    const el = document.elementFromPoint(mouseX, mouseY);
-    const isHover = el && (el.matches(INTERACTABLE) || el.closest(INTERACTABLE));
-    document.body.classList.toggle('cursor-hover', !!isHover);
-  });
-
-  // Star continuous spin via rAF
-  let angle = 0;
-  function animateStar() {
-    angle += 1.2;
-    star.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) rotate(${angle}deg)`;
-    requestAnimationFrame(animateStar);
-  }
-  animateStar();
-
-  // Lazy trail
-  function animateTrail() {
-    trailX += (mouseX - trailX) * 0.14;
-    trailY += (mouseY - trailY) * 0.14;
-    trail.style.transform = `translate(${trailX}px, ${trailY}px) translate(-50%, -50%)`;
-    requestAnimationFrame(animateTrail);
-  }
-  animateTrail();
-
-  // Click burst effect
-  document.addEventListener('click', e => {
-    const burst = document.createElement('div');
-    burst.style.cssText = `
-      position:fixed; pointer-events:none; z-index:99999;
-      left:${e.clientX}px; top:${e.clientY}px;
-      width:4px; height:4px;
-      transform: translate(-50%,-50%);
-    `;
-
-    // spawn 6 mini sparks
-    for(let i=0; i<6; i++){
-      const spark = document.createElement('div');
-      const angle = (i / 6) * Math.PI * 2;
-      const dist  = 18 + Math.random() * 16;
-      spark.style.cssText = `
-        position:absolute; width:3px; height:3px;
-        border-radius:50%;
-        background: ${Math.random() > 0.5 ? '#d91b7a' : '#e040d0'};
-        box-shadow: 0 0 6px rgba(217,27,122,0.9);
-        left:0; top:0;
-        animation: sparkFly 0.4s ease-out forwards;
-        --dx:${Math.cos(angle)*dist}px;
-        --dy:${Math.sin(angle)*dist}px;
-      `;
-      burst.appendChild(spark);
-    }
-
-    document.body.appendChild(burst);
-    setTimeout(() => burst.remove(), 450);
-  });
-})();
-
 /* ════════════════════════════════
    HUBBLE STAR FIELD
 ════════════════════════════════ */
@@ -759,42 +574,48 @@ footer {
   resize();
   window.addEventListener('resize', resize);
 
+  // Star types: tiny white, blue-white, orange-red, nebula glow
   const STAR_COUNT = 420;
   const stars = [];
 
   const palettes = [
-    {r:255,g:255,b:255},
-    {r:200,g:220,b:255},
-    {r:255,g:240,b:200},
-    {r:255,g:190,b:140},
-    {r:220,g:180,b:255},
-    {r:255,g:160,b:200},
-    {r:150,g:200,b:255},
+    {r:255,g:255,b:255},   // pure white
+    {r:200,g:220,b:255},   // blue-white
+    {r:255,g:240,b:200},   // warm yellow
+    {r:255,g:190,b:140},   // orange giant
+    {r:220,g:180,b:255},   // purple nebula
+    {r:255,g:160,b:200},   // pink nebula
+    {r:150,g:200,b:255},   // blue giant
   ];
 
   for(let i=0;i<STAR_COUNT;i++){
     const col = palettes[Math.floor(Math.random()*palettes.length)];
     const size = Math.random();
     stars.push({
-      x: Math.random(),
+      x: Math.random(),   // fractional so we re-scale on resize
       y: Math.random(),
-      r: size < 0.6 ? 0.4 + Math.random()*0.6
-       : size < 0.88? 1.0 + Math.random()*1.0
-       :              1.8 + Math.random()*2.2,
+      r: size < 0.6 ? 0.4 + Math.random()*0.6   // tiny
+       : size < 0.88? 1.0 + Math.random()*1.0   // medium
+       :              1.8 + Math.random()*2.2,   // bright star
       col,
       alpha: 0.3 + Math.random()*0.7,
       twinkleSeed: Math.random()*Math.PI*2,
       twinkleSpeed: 0.4 + Math.random()*1.2,
+      // Some stars get diffraction spikes (Hubble-style)
       spike: Math.random() > 0.88,
+      // Some get a faint colour bloom
       bloom: Math.random() > 0.72,
     });
   }
 
+  // Nebula clouds — faint, painted once
   const nebulae = [];
   for(let i=0;i<6;i++){
     nebulae.push({
-      x: Math.random(), y: Math.random(),
-      rx: 80 + Math.random()*200, ry: 50 + Math.random()*120,
+      x: Math.random(),
+      y: Math.random(),
+      rx: 80 + Math.random()*200,
+      ry: 50 + Math.random()*120,
       r: Math.floor(Math.random()*2)===0 ? 100 : 60,
       g: 0,
       b: Math.floor(Math.random()*2)===0 ? 120 : 80,
@@ -806,41 +627,61 @@ footer {
   let t = 0;
   function draw(){
     ctx.clearRect(0,0,W,H);
+
+    // Nebulae
     nebulae.forEach(n=>{
-      ctx.save();ctx.translate(n.x*W, n.y*H);ctx.rotate(n.rot);ctx.scale(1, n.ry/n.rx);
+      ctx.save();
+      ctx.translate(n.x*W, n.y*H);
+      ctx.rotate(n.rot);
       const g = ctx.createRadialGradient(0,0,0,0,0,n.rx);
-      g.addColorStop(0,`rgba(${n.r},${n.g},${n.b},${n.a})`);
-      g.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.beginPath();ctx.arc(0,0,n.rx,0,Math.PI*2);
-      ctx.fillStyle=g;ctx.fill();ctx.restore();
+      g.addColorStop(0,  `rgba(${n.r},${n.g},${n.b},${n.a})`);
+      g.addColorStop(1,  'rgba(0,0,0,0)');
+      ctx.scale(1, n.ry/n.rx);
+      ctx.beginPath(); ctx.arc(0,0,n.rx,0,Math.PI*2);
+      ctx.fillStyle=g; ctx.fill();
+      ctx.restore();
     });
 
+    // Stars
     stars.forEach(s=>{
-      const sx=s.x*W, sy=s.y*H;
-      const twinkle=0.6+0.4*Math.sin(t*s.twinkleSpeed+s.twinkleSeed);
-      const a=s.alpha*twinkle;
-      const {r,g,b}=s.col;
-      if(s.bloom && s.r>1){
-        const bg=ctx.createRadialGradient(sx,sy,0,sx,sy,s.r*5);
-        bg.addColorStop(0,`rgba(${r},${g},${b},${a*0.35})`);
-        bg.addColorStop(1,'rgba(0,0,0,0)');
-        ctx.beginPath();ctx.arc(sx,sy,s.r*5,0,Math.PI*2);
-        ctx.fillStyle=bg;ctx.fill();
+      const sx = s.x * W;
+      const sy = s.y * H;
+      const twinkle = 0.6 + 0.4*Math.sin(t*s.twinkleSpeed + s.twinkleSeed);
+      const a = s.alpha * twinkle;
+      const {r,g,b} = s.col;
+
+      // Colour bloom
+      if(s.bloom && s.r > 1){
+        const bg = ctx.createRadialGradient(sx,sy,0,sx,sy,s.r*5);
+        bg.addColorStop(0, `rgba(${r},${g},${b},${a*0.35})`);
+        bg.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath(); ctx.arc(sx,sy,s.r*5,0,Math.PI*2);
+        ctx.fillStyle=bg; ctx.fill();
       }
-      ctx.beginPath();ctx.arc(sx,sy,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(${r},${g},${b},${a})`;ctx.fill();
-      if(s.spike && s.r>1.5){
-        const len=s.r*6*twinkle;
-        ctx.strokeStyle=`rgba(${r},${g},${b},${a*0.5})`;ctx.lineWidth=0.5;
-        ctx.beginPath();ctx.moveTo(sx-len,sy);ctx.lineTo(sx+len,sy);ctx.stroke();
-        ctx.beginPath();ctx.moveTo(sx,sy-len);ctx.lineTo(sx,sy+len);ctx.stroke();
-        const d=len*0.55;
+
+      // Core dot
+      ctx.beginPath(); ctx.arc(sx,sy,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},${a})`;
+      ctx.fill();
+
+      // Diffraction spikes (Hubble cross)
+      if(s.spike && s.r > 1.5){
+        const len = s.r * 6 * twinkle;
+        ctx.strokeStyle=`rgba(${r},${g},${b},${a*0.5})`;
+        ctx.lineWidth=0.5;
+        // horizontal
+        ctx.beginPath(); ctx.moveTo(sx-len,sy); ctx.lineTo(sx+len,sy); ctx.stroke();
+        // vertical
+        ctx.beginPath(); ctx.moveTo(sx,sy-len); ctx.lineTo(sx,sy+len); ctx.stroke();
+        // diagonal (45°)
+        const d = len*0.55;
         ctx.strokeStyle=`rgba(${r},${g},${b},${a*0.25})`;
-        ctx.beginPath();ctx.moveTo(sx-d,sy-d);ctx.lineTo(sx+d,sy+d);ctx.stroke();
-        ctx.beginPath();ctx.moveTo(sx+d,sy-d);ctx.lineTo(sx-d,sy+d);ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(sx-d,sy-d); ctx.lineTo(sx+d,sy+d); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(sx+d,sy-d); ctx.lineTo(sx-d,sy+d); ctx.stroke();
       }
     });
-    t+=0.016;
+
+    t += 0.016;
     requestAnimationFrame(draw);
   }
   draw();
@@ -850,7 +691,7 @@ footer {
    PARTICLES
 ════════════════════════════════ */
 (function(){
-  const pc=document.getElementById('particles');
+  const pc = document.getElementById('particles');
   for(let i=0;i<40;i++){
     const p=document.createElement('div');
     p.className='pt';
@@ -860,14 +701,18 @@ footer {
 })();
 
 /* ════════════════════════════════
-   3D RHOMBUS
+   3D RHOMBUS (Diamond solid)
 ════════════════════════════════ */
 (function(){
-  const canvas=document.getElementById('rhombusCanvas');
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height,cx=W/2,cy=H/2;
-  const TY=-120,BY=120,R=78,MY=0;
-  const VERTS=[[0,TY,0],[0,BY,0],[0,MY,R],[0,MY,-R],[-R,MY,0],[R,MY,0]];
+  const canvas = document.getElementById('rhombusCanvas');
+  const ctx    = canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+
+  const TY=-170, BY=170, R=110, MY=0;
+  const VERTS=[
+    [0,TY,0],[0,BY,0],
+    [0,MY,R],[0,MY,-R],[-R,MY,0],[R,MY,0]
+  ];
   const FACES=[
     {idx:[0,2,5],rgb:[222,58,220]},{idx:[0,5,3],rgb:[205,45,210]},
     {idx:[0,3,4],rgb:[215,52,215]},{idx:[0,4,2],rgb:[225,60,218]},
@@ -875,7 +720,8 @@ footer {
     {idx:[1,4,3],rgb:[168,28,182]},{idx:[1,2,4],rgb:[175,32,185]},
   ];
   const EDGES=[[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,5],[5,3],[3,4],[4,2]];
-  const L=[.5,-.7,.75];const ll=Math.sqrt(L[0]**2+L[1]**2+L[2]**2);L[0]/=ll;L[1]/=ll;L[2]/=ll;
+  const L=[.5,-.7,.75]; const ll=Math.sqrt(L[0]**2+L[1]**2+L[2]**2); L[0]/=ll;L[1]/=ll;L[2]/=ll;
+
   function ry(v,a){const c=Math.cos(a),s=Math.sin(a);return[v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c];}
   function rx(v,a){const c=Math.cos(a),s=Math.sin(a);return[v[0],v[1]*c-v[2]*s,v[1]*s+v[2]*c];}
   function proj(v){const fov=700,z=v[2]+520;return[cx+v[0]*fov/z,cy+v[1]*fov/z];}
@@ -883,15 +729,32 @@ footer {
     const ax=p1[0]-p0[0],ay=p1[1]-p0[1],az=p1[2]-p0[2];
     const bx=p2[0]-p0[0],by=p2[1]-p0[1],bz=p2[2]-p0[2];
     const nx=ay*bz-az*by,ny=az*bx-ax*bz,nz=ax*by-ay*bx;
-    const l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;return[nx/l,ny/l,nz/l];
+    const l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
+    return[nx/l,ny/l,nz/l];
   }
-  let time=0,smX=0,smY=0,mX=0,mY=0;
-  document.addEventListener('mousemove',e=>{mX=(e.clientX/window.innerWidth-.5)*1.2;mY=(e.clientY/window.innerHeight-.5)*-.7;});
+
+  let time=0, smX=0, smY=0, mX=0, mY=0;
+  document.addEventListener('mousemove',e=>{
+    mX=(e.clientX/window.innerWidth-.5)*1.2;
+    mY=(e.clientY/window.innerHeight-.5)*-.7;
+  });
+
   function draw(){
-    ctx.clearRect(0,0,W,H);time+=0.011;smX+=(mX-smX)*.06;smY+=(mY-smY)*.06;
-    const ay=time+smX*.9,ax=0.18+smY*.5;
+    ctx.clearRect(0,0,W,H);
+    time+=0.011; smX+=(mX-smX)*.06; smY+=(mY-smY)*.06;
+    const ay=time+smX*.9, ax=0.18+smY*.5;
     const T=VERTS.map(v=>{let r=ry(v,ay);return rx(r,ax);});
     const P=T.map(proj);
+
+    // rings
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(time*.3);ctx.scale(1,.25);
+    ctx.beginPath();ctx.arc(0,0,215,0,Math.PI*2);
+    ctx.strokeStyle='rgba(217,27,122,0.22)';ctx.lineWidth=1;
+    ctx.shadowColor='#d91b7a';ctx.shadowBlur=5;ctx.stroke();ctx.shadowBlur=0;ctx.restore();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(-time*.18+.9);ctx.scale(.28,1);
+    ctx.beginPath();ctx.arc(0,0,210,0,Math.PI*2);
+    ctx.strokeStyle='rgba(192,38,211,0.18)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
+
     const sorted=FACES.map(f=>{
       const pts3=f.idx.map(i=>T[i]),pts2=f.idx.map(i=>P[i]);
       const avgZ=pts3.reduce((s,p)=>s+p[2],0)/3;
@@ -899,6 +762,7 @@ footer {
       const diff=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);
       return{f,pts2,avgZ,diff};
     }).sort((a,b)=>a.avgZ-b.avgZ);
+
     sorted.forEach(({f,pts2,diff})=>{
       const bright=.32+diff*.68,alpha=.12+bright*.36;
       const [r,g,b]=f.rgb;
@@ -911,6 +775,7 @@ footer {
       ctx.lineWidth=1.6;ctx.shadowColor='#c026d3';ctx.shadowBlur=14;ctx.stroke();ctx.shadowBlur=0;
       ctx.strokeStyle=`rgba(255,200,255,${(.08+diff*.22).toFixed(3)})`;ctx.lineWidth=.6;ctx.stroke();
     });
+
     EDGES.forEach(([a,b])=>{
       ctx.beginPath();ctx.moveTo(P[a][0],P[a][1]);ctx.lineTo(P[b][0],P[b][1]);
       ctx.strokeStyle='rgba(235,75,228,0.55)';ctx.lineWidth=1.8;
@@ -929,10 +794,12 @@ footer {
    CHAT LOGIC
 ════════════════════════════════ */
 (function(){
-  const input=document.getElementById('chatInput');
-  const btn=document.getElementById('sendBtn');
-  const box=document.getElementById('chatMessages');
-  const voidReplies=[
+  const input   = document.getElementById('chatInput');
+  const btn     = document.getElementById('sendBtn');
+  const box     = document.getElementById('chatMessages');
+
+  // Pre-canned void responses
+  const voidReplies = [
     "> Action reserved.\n> Try again later.",
     "> Interesting.\n> You got in.",
     "> Your signal is weak.\n> Check your wifi..",
@@ -944,45 +811,72 @@ footer {
     "> CONNECTION_UNSTABLE\n> But your presence is noted, glitch.",
     "> The nightmare has a name now.\n> It is yours.",
   ];
-  function now(){const d=new Date();return`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;}
-  function addMsg(text,isMe){
-    const cursors=box.querySelectorAll('.cursor');cursors.forEach(c=>c.remove());
-    const wrap=document.createElement('div');wrap.className=`msg ${isMe?'me':'them'}`;wrap.style.animation='fadeIn .3s ease both';
-    const bubble=document.createElement('div');bubble.className='bubble';bubble.style.whiteSpace='pre-line';bubble.textContent=text;
-    const meta=document.createElement('div');meta.className='msg-meta';
-    meta.innerHTML=isMe?`${now()} &nbsp;<span class="check read">✓✓</span>`:`${now()} &nbsp;<span>XAILAN</span>`;
-    wrap.appendChild(bubble);wrap.appendChild(meta);box.appendChild(wrap);box.scrollTop=box.scrollHeight;
+
+  function now(){
+    const d=new Date();
+    return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
   }
+
+  function addMsg(text, isMe){
+    // Remove cursor from last "them" message
+    const cursors = box.querySelectorAll('.cursor');
+    cursors.forEach(c=>c.remove());
+
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${isMe?'me':'them'}`;
+    wrap.style.animation='fadeIn .3s ease both';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.style.whiteSpace='pre-line';
+    bubble.textContent = text;
+
+    const meta = document.createElement('div');
+    meta.className = 'msg-meta';
+    meta.innerHTML = isMe
+      ? `${now()} &nbsp;<span class="check read">✓✓</span>`
+      : `${now()} &nbsp;<span>XAILAN</span>`;
+
+    wrap.appendChild(bubble);
+    wrap.appendChild(meta);
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+
   function addTyping(){
-    const sys=document.createElement('div');sys.className='sys-msg';sys.id='typingIndicator';
-    sys.textContent='> XAILAN IS TYPING . . .';box.appendChild(sys);box.scrollTop=box.scrollHeight;
+    const sys=document.createElement('div');
+    sys.className='sys-msg';sys.id='typingIndicator';
+    sys.textContent='> XAILAN IS TYPING . . .';
+    box.appendChild(sys);
+    box.scrollTop=box.scrollHeight;
   }
+
   function send(){
-    const val=input.value.trim();if(!val)return;
-    addMsg('> '+val,true);input.value='';
+    const val = input.value.trim();
+    if(!val) return;
+    addMsg('> ' + val, true);
+    input.value='';
+
+    // Simulate reply
     addTyping();
     setTimeout(()=>{
-      const t=document.getElementById('typingIndicator');if(t)t.remove();
-      addMsg(voidReplies[Math.floor(Math.random()*voidReplies.length)],false);
-    },1200+Math.random()*800);
+      const t=document.getElementById('typingIndicator');
+      if(t) t.remove();
+      const reply = voidReplies[Math.floor(Math.random() * voidReplies.length)];
+      addMsg(reply, false);
+    }, 1200 + Math.random()*800);
   }
-  btn.addEventListener('click',send);
-  input.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+
+  btn.addEventListener('click', send);
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
 })();
 
+/* Resize star canvas on scroll/resize */
 window.addEventListener('resize',()=>{
   const c=document.getElementById('starCanvas');
   c.width=window.innerWidth;
   c.height=Math.max(window.innerHeight,document.body.scrollHeight);
 });
 </script>
-
-<!-- Spark keyframes injected via style tag so they're accessible -->
-<style>
-@keyframes sparkFly {
-  0%   { transform: translate(0,0) scale(1); opacity:1; }
-  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity:0; }
-}
-</style>
 </body>
-</html>
+</html>-->
