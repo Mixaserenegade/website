@@ -246,10 +246,12 @@ nav {
   width:300px; height:300px;
   display:flex; align-items:center; justify-content:center;
   position:relative;
+  overflow:visible;
 }
 #rhombusCanvas {
   width:300px; height:300px;
-  filter: drop-shadow(0 0 30px rgba(192,38,211,.95)) drop-shadow(0 0 90px rgba(192,38,211,.45));
+  filter: drop-shadow(0 0 18px rgba(192,38,211,.95)) drop-shadow(0 0 36px rgba(192,38,211,.5));
+  display:block;
 }
 
 /* Scroll hint */
@@ -890,12 +892,6 @@ footer {
     const ay=time+smX*.9,ax=0.18+smY*.5;
     const T=VERTS.map(v=>{let r=ry(v,ay);return rx(r,ax);});
     const P=T.map(proj);
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(time*.3);ctx.scale(1,.25);
-    ctx.beginPath();ctx.arc(0,0,152,0,Math.PI*2);
-    ctx.strokeStyle='rgba(217,27,122,0.22)';ctx.lineWidth=1;ctx.shadowColor='#d91b7a';ctx.shadowBlur=5;ctx.stroke();ctx.shadowBlur=0;ctx.restore();
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(-time*.18+.9);ctx.scale(.28,1);
-    ctx.beginPath();ctx.arc(0,0,148,0,Math.PI*2);
-    ctx.strokeStyle='rgba(192,38,211,0.18)';ctx.lineWidth=1;ctx.stroke();ctx.restore();
     const sorted=FACES.map(f=>{
       const pts3=f.idx.map(i=>T[i]),pts2=f.idx.map(i=>P[i]);
       const avgZ=pts3.reduce((s,p)=>s+p[2],0)/3;
